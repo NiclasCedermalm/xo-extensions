@@ -14,7 +14,6 @@
        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>${project.groupId}:${project.artifactId}</name>
     <description>DXA Experience Optimization module</description>
     <url>https://github.com/NiclasCedermalm/modules4dxa-java</url>
 
