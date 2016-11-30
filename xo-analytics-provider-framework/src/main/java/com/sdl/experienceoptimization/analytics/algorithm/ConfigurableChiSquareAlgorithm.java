@@ -1,5 +1,6 @@
-package com.sdl.experienceoptimization.analytics;
+package com.sdl.experienceoptimization.analytics.algorithm;
 
+import com.sdl.experienceoptimization.analytics.algorithm.ExperimentWinnerAlgorithm;
 import com.tridion.smarttarget.analytics.AnalyticsConfiguration;
 import com.tridion.smarttarget.analytics.ChiSquareAlgorithm;
 import com.tridion.smarttarget.experiments.statistics.Variant;

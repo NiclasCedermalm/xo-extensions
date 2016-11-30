@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0.1</version>
 
-    <name>${project.groupId}:${project.artifactId}</name>
     <description>Experience Optimization Extensions</description>
     <url>https://github.com/NiclasCedermalm/xo-extensions</url>
 
@@ -73,6 +72,7 @@
 
     <modules>
         <module>dxa-module-experienceoptimization</module>
+        <module>xo-analytics-provider-framework</module>
         <module>xo-analytics-provider-localdb</module>
         <module>xo-experiments-no-region-check</module>
     </modules>

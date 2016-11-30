@@ -18,9 +18,9 @@ For test and demos dummy data can be generated for a specific experiment.
 Example of configuration in smarttarget_conf.xml:
 
 ```
-<Analytics implementationClass="com.sdl.experienceoptimization.analytics.LocalAnalyticsManager" timeoutMilliseconds="5000" trackingRedirectUrl="/redirect/">
+<Analytics implementationClass="com.sdl.experienceoptimization.analytics.localdb.LocalAnalyticsManager" timeoutMilliseconds="5000" trackingRedirectUrl="/redirect/">
     <Storage url="jdbc:hsqldb:/db/tracking-db/tracking-db;user=user1;password=secret" className="org.hsqldb.jdbcDriver" cacheTime="10000"/>
-    <ExperimentWinnerAlgorithmClassName>com.sdl.experienceoptimization.analytics.ReachConversionGoalAlgorithm</ExperimentWinnerAlgorithmClassName>
+    <ExperimentWinnerAlgorithmClassName>com.sdl.experienceoptimization.analytics.algorithm.ReachConversionGoalAlgorithm</ExperimentWinnerAlgorithmClassName>
     <ConversionGoal>10</ConversionGoal>
     <TrackingStoreInterval>10000</TrackingStoreInterval>
     <UseDummyData>true</UseDummyData>

@@ -1,6 +1,6 @@
 package com.sdl.experienceoptimization.analytics;
 
-import com.sdl.experienceoptimization.analytics.dummy.DummyDataProvider;
+import com.sdl.experienceoptimization.analytics.algorithm.ExperimentWinnerAlgorithm;
 import com.tridion.smarttarget.SmartTargetException;
 import com.tridion.smarttarget.analytics.AnalyticsConfiguration;
 import com.tridion.smarttarget.analytics.AnalyticsManager;
@@ -11,33 +11,22 @@ import com.tridion.smarttarget.analytics.statistics.StatisticsExperimentDimensio
 import com.tridion.smarttarget.analytics.statistics.StatisticsFilter;
 import com.tridion.smarttarget.analytics.statistics.StatisticsFilters;
 import com.tridion.smarttarget.analytics.statistics.StatisticsTimeDimensions;
-import com.tridion.smarttarget.analytics.tracking.ExperimentDimensions;
 import com.tridion.smarttarget.experiments.statistics.Variants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Calendar;
 
 /**
- * Local Analytics Manager
+ * AnalyticsManagerBase
  *
  * @author nic
  */
-public class LocalAnalyticsManager extends AnalyticsManager {
+public abstract class AnalyticsManagerBase extends AnalyticsManager {
 
-    static private Logger log = LoggerFactory.getLogger(LocalAnalyticsManager.class);
+    protected static Class<?> experimentWinnerAlgorithm;
 
-    // Static members to minimize the creation of new worker threads+repositories for each time
-    //
-    private static Class<?> experimentWinnerAlgorithm;
-    private static AnalyticsResultWorker resultWorker;
-    private static AnalyticsResultRepository resultRepository;
+    protected AnalyticsManagerBase() throws SmartTargetException {
 
-    private static DummyDataProvider dummyDataProvider;
-
-    public LocalAnalyticsManager() throws SmartTargetException {
-
-        synchronized ( LocalAnalyticsManager.class ) {
+        synchronized ( AnalyticsManagerBase.class ) {
             if (experimentWinnerAlgorithm == null) {
                 String algorithmClassName = this.getConfiguration().getAnalyticsProperty("ExperimentWinnerAlgorithmClassName");
 
@@ -45,13 +34,6 @@ public class LocalAnalyticsManager extends AnalyticsManager {
                     experimentWinnerAlgorithm = Class.forName(algorithmClassName);
                 } catch (ClassNotFoundException e) {
                     throw new SmartTargetException("Could not load experiment winner algorithm with class name: " + algorithmClassName, e);
-                }
-
-                resultRepository = new AnalyticsResultRepository(this.getConfiguration());
-                resultWorker = new AnalyticsResultWorker(this, resultRepository, this.getConfiguration());
-                String useDummyData = this.getConfiguration().getAnalyticsProperty("UseDummyData");
-                if ( useDummyData != null && Boolean.parseBoolean(useDummyData) == true ) {
-                    dummyDataProvider = new DummyDataProvider();
                 }
             }
         }
@@ -68,54 +50,23 @@ public class LocalAnalyticsManager extends AnalyticsManager {
     }
 
     @Override
-    public void trackView(ExperimentDimensions experimentDimensions, Map<String, String> metadata) {
+    public void calculateWinner(Variants variants) throws SmartTargetException {
 
-        log.debug("Track view: " + experimentDimensions);
-        // TODO: Stop tracking after a winner has been selected????
-        this.resultWorker.submitTracking(new TrackedExperiment(experimentDimensions, ExperimentType.VIEW));
-    }
-
-    @Override
-    public void trackConversion(ExperimentDimensions experimentDimensions, Map<String, String> metadata) {
-        log.debug("Track conversion: " + experimentDimensions);
-        this.resultWorker.submitTracking(new TrackedExperiment(experimentDimensions, ExperimentType.CONVERSION));
-    }
-
-    @Override
-    protected AnalyticsResults getStatisticsResults(Date startDate,
-                                                    Date endDate,
-                                                    StatisticsExperimentDimensions experimentDimensions,
-                                                    StatisticsTimeDimensions timeDimensions,
-                                                    List<String> extraDimensions,
-                                                    StatisticsFilters statisticsFilters,
-                                                    int startIndex,
-                                                    int maxResults) throws Exception {
-
-        log.debug("Getting analytics results...");
-        log.debug("Statistics Filters: " + statisticsFilters);
-
-        String experimentId = this.getExperimentId(statisticsFilters);
-        if ( dummyDataProvider != null && experimentId != null && experimentId.equals(dummyDataProvider.getExperimentId()) ) {
-            return dummyDataProvider.getDummyResults(startDate, endDate, experimentDimensions, timeDimensions, extraDimensions, statisticsFilters, startIndex, maxResults);
+        try {
+            ExperimentWinnerAlgorithm algorithm = (ExperimentWinnerAlgorithm)
+                    this.experimentWinnerAlgorithm.getConstructor(AnalyticsConfiguration.class).
+                            newInstance(this.getConfiguration());
+            algorithm.process(variants);
         }
-        // TODO: Check winner here instead???
-        // TODO: Check why this method sometimes returns null
-
-        List<AggregatedTracking> trackings = this.resultRepository.getTrackingResults(statisticsFilters);
-
-        SimpleAnalyticsResults results = new SimpleAnalyticsResults();
-
-        if ( trackings != null ) {
-            for (AggregatedTracking tracking : trackings) {
-                this.addAnalyticsResultsRow(results, tracking, experimentDimensions, timeDimensions);
-            }
+        catch ( SmartTargetException e ) {
+            throw e;
         }
-
-        return results;
+        catch ( Exception e ) {
+            throw new SmartTargetException("Error while calculating winner", e);
+        }
     }
 
-
-    private String getExperimentId(StatisticsFilters statisticsFilters) {
+    protected String getExperimentId(StatisticsFilters statisticsFilters) {
         for ( StatisticsFilter filter : statisticsFilters ) {
             if ( filter.getName().equals("ExperimentId") ) {
                 return filter.getOperand();
@@ -124,7 +75,7 @@ public class LocalAnalyticsManager extends AnalyticsManager {
         return null;
     }
 
-    private void addAnalyticsResultsRow(AnalyticsResults results,
+    protected void addAnalyticsResultsRow(AnalyticsResults results,
                                         AggregatedTracking tracking,
                                         StatisticsExperimentDimensions experimentDimensions,
                                         StatisticsTimeDimensions timeDimensions)
@@ -194,19 +145,4 @@ public class LocalAnalyticsManager extends AnalyticsManager {
         }
     }
 
-    public void calculateWinner(Variants variants) throws SmartTargetException {
-
-        try {
-            ExperimentWinnerAlgorithm algorithm = (ExperimentWinnerAlgorithm)
-                    this.experimentWinnerAlgorithm.getConstructor(AnalyticsConfiguration.class).
-                            newInstance(this.getConfiguration());
-            algorithm.process(variants);
-        }
-        catch ( SmartTargetException e ) {
-            throw e;
-        }
-        catch ( Exception e ) {
-            throw new SmartTargetException("Error while calculating winner", e);
-        }
-    }
 }

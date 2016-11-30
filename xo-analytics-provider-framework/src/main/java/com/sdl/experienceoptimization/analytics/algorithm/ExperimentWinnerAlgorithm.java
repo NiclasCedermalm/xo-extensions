@@ -1,4 +1,4 @@
-package com.sdl.experienceoptimization.analytics;
+package com.sdl.experienceoptimization.analytics.algorithm;
 
 import com.tridion.smarttarget.experiments.statistics.Variants;
 

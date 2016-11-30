@@ -5,8 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>xo-analytics-provider-localdb</artifactId>
-    <description>XO Local DB Analytics Provider</description>
+    <artifactId>xo-analytics-provider-framework</artifactId>
+    <description>Framework for doing XO Analytics Provider</description>
 
     <parent>
        <artifactId>xo-extensions</artifactId>
@@ -38,13 +38,6 @@
     </developers>
 
     <dependencies>
-
-
-        <dependency>
-            <groupId>com.sdl.addon</groupId>
-            <artifactId>xo-analytics-provider-framework</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!-- Experience Optimization -->
         <!-- TODO: This dependency is only used to grab the XO core dependencies -->
@@ -81,6 +74,7 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
 
     </dependencies>
 

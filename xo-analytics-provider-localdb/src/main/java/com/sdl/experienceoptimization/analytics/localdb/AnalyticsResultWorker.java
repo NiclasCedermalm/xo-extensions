@@ -1,5 +1,8 @@
-package com.sdl.experienceoptimization.analytics;
+package com.sdl.experienceoptimization.analytics.localdb;
 
+import com.sdl.experienceoptimization.analytics.AggregatedTracking;
+import com.sdl.experienceoptimization.analytics.ExperimentType;
+import com.sdl.experienceoptimization.analytics.TrackedExperiment;
 import com.tridion.smarttarget.SmartTargetException;
 import com.tridion.smarttarget.analytics.AnalyticsConfiguration;
 import com.tridion.smarttarget.experiments.statistics.Variant;
