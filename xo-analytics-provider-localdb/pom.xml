@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>xo-analytics-provider-localdb</artifactId>
+    <description>XO Local DB Analytics Provider</description>
+
+    <parent>
+       <artifactId>xo-extensions</artifactId>
+       <groupId>com.sdl.addon</groupId>
+       <version>1.0.1</version>
+       <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <scm>
+        <url>https://github.com/NiclasCedermalm/xo-extensions</url>
+        <connection>scm:git:https://github.com/NiclasCedermalm/xo-extensions.git</connection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>nic</id>
+            <name>Niclas Cedermalm</name>
+            <email>ncedermalm@sdl.com</email>
+            <timezone>UTC+1</timezone>
+        </developer>
+    </developers>
+
+    <dependencies>
+
+        <!-- Experience Optimization -->
+        <!-- TODO: This dependency is only used to grab the XO core dependencies -->
+
+        <dependency>
+            <groupId>com.sdl.dxa.modules</groupId>
+            <artifactId>dxa-module-smarttarget-web8</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!--
+        <dependency>
+            <groupId>com.tridion</groupId>
+            <artifactId>smarttarget_core</artifactId>
+            <version>${xo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tridion</groupId>
+            <artifactId>smarttarget_entitymodel</artifactId>
+            <version>${xo.version}</version>
+        </dependency>
+      -->
+
+        <!--
+        <dependency>
+            <groupId>com.tridion</groupId>
+            <artifactId>smarttarget_cartridge</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
