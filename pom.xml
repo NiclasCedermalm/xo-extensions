@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sdl.addon</groupId>
+    <artifactId>xo-extensions</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.1</version>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Experience Optimization Extensions</description>
+    <url>https://github.com/NiclasCedermalm/xo-extensions</url>
+
+    <scm>
+        <url>https://github.com/NiclasCedermalm/xo-extensions</url>
+        <connection>scm:git:https://github.com/NiclasCedermalm/xo-extensions.git</connection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>nic</id>
+            <name>Niclas Cedermalm</name>
+            <email>ncedermalm@sdl.com</email>
+            <timezone>UTC+1</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+      <java-version>1.8</java-version>
+      <dxa.version>1.6.0</dxa.version>
+      <dxa-release-branch>release/1.6</dxa-release-branch>
+      <spring.version>3.1.4.RELEASE</spring.version>
+      <xo.version>8.3.0</xo.version>
+   </properties>
+
+   <repositories>
+       <repository>
+           <id>github-project-repo</id>
+           <url>
+               https://raw.githubusercontent.com/sdl/dxa-web-application-java/${dxa-release-branch}/local-project-repo
+           </url>
+       </repository>
+   </repositories>
+
+   <dependencyManagement>
+       <dependencies>
+           <dependency>
+               <groupId>com.sdl.dxa</groupId>
+               <artifactId>dxa-bom</artifactId>
+               <version>${dxa.version}</version>
+               <scope>import</scope>
+               <type>pom</type>
+           </dependency>
+           <dependency>
+               <groupId>com.sdl.dxa.modules</groupId>
+               <artifactId>dxa-bom-modules</artifactId>
+               <version>${dxa.version}</version>
+               <scope>import</scope>
+               <type>pom</type>
+           </dependency>
+       </dependencies>
+   </dependencyManagement>
+
+    <modules>
+        <module>dxa-module-experienceoptimization</module>
+        <module>xo-analytics-provider-localdb</module>
+        <module>xo-experiments-no-region-check</module>
+    </modules>
+
+</project>
