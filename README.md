@@ -5,7 +5,7 @@ This project contains various extensions for the SDL Web Experience Optimization
 
 Modules:
 * [Extended DXA Module for XO](./dxa-module-experienceoptimization/README.md) 
-* [XO Analytics Provider Framework](./xo-analytics-framework/README.md)
+* [XO Analytics Provider Framework](./xo-analytics-provider-framework/README.md)
 * [XO Analytics Provider for Local Database](./xo-analytics-provider-localdb/README.md)
 * [XO Experiments No Region Check](./xo-experiments-no-region-check/README.md)
 
