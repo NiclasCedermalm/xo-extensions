@@ -1,7 +1,7 @@
 XO Analytics Provider for Local Database
 ============================================
 
-A XO analytics provider for local SQL database. Offers the possibility to have all tracking of content experiments in a local database instead of Google Analytics
+A XO analytics provider for local SQL databases. Offers the possibility to have all tracking of content experiments in a local database instead of Google Analytics
 
 ## Local Analytics Provider
 
