@@ -1,8 +1,7 @@
 XO Analytics Provider for Local Database
 ============================================
 
-* Local DB Analytics Provider - offer the possibility to have all tracking of content experiments in a local SQL database instead of Google Analytics
-* Possibility to enable automatic selection of winner in Content Experiments, i.e. after a winner has been selected that promotion is always shown for all visitors. This is configurable in the SmartTarget configuration.
+* A XO analytics provider for local SQL database. Offers the possibility to have all tracking of content experiments in a local database instead of Google Analytics
 
 ## Local Analytics Provider
 
