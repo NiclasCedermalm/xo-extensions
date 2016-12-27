@@ -7,7 +7,7 @@
     <groupId>com.sdl.addon</groupId>
     <artifactId>xo-extensions</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <description>Experience Optimization Extensions</description>
     <url>https://github.com/NiclasCedermalm/xo-extensions</url>
@@ -36,10 +36,10 @@
 
     <properties>
       <java-version>1.8</java-version>
-      <dxa.version>1.6.0</dxa.version>
-      <dxa-release-branch>release/1.6</dxa-release-branch>
+      <dxa.version>1.7.0</dxa.version>
+      <dxa-release-branch>release/1.7</dxa-release-branch>
       <spring.version>3.1.4.RELEASE</spring.version>
-      <xo.version>8.3.0</xo.version>
+      <xo.version>8.5.0</xo.version>
    </properties>
 
    <repositories>
