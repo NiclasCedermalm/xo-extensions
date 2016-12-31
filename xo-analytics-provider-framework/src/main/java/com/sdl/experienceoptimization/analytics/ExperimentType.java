@@ -1,7 +1,7 @@
 package com.sdl.experienceoptimization.analytics;
 
 /**
- * ExperimentType
+ * Experiment Type
  *
  * @author nic
  */

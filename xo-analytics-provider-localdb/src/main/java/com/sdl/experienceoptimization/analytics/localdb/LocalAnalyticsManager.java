@@ -43,20 +43,42 @@ public class LocalAnalyticsManager extends AnalyticsManagerBase {
         }
     }
 
+    /**
+     * Submit view tracking data to worker that asynchronously write analytics data into the database
+     * @param experimentDimensions
+     * @param metadata
+     */
     @Override
     public void trackView(ExperimentDimensions experimentDimensions, Map<String, String> metadata) {
-
         log.debug("Track view: " + experimentDimensions);
         // TODO: Stop tracking after a winner has been selected????
         this.resultWorker.submitTracking(new TrackedExperiment(experimentDimensions, ExperimentType.VIEW));
     }
 
+    /**
+     * Submit conversion tracking data to worker that asynchronously write analytics data into the database
+     * @param experimentDimensions
+     * @param metadata
+     */
     @Override
     public void trackConversion(ExperimentDimensions experimentDimensions, Map<String, String> metadata) {
         log.debug("Track conversion: " + experimentDimensions);
         this.resultWorker.submitTracking(new TrackedExperiment(experimentDimensions, ExperimentType.CONVERSION));
     }
 
+    /**
+     * Get analytics results from the tracking database
+     * @param startDate
+     * @param endDate
+     * @param experimentDimensions
+     * @param timeDimensions
+     * @param extraDimensions
+     * @param statisticsFilters
+     * @param startIndex
+     * @param maxResults
+     * @return
+     * @throws Exception
+     */
     @Override
     protected AnalyticsResults getStatisticsResults(Date startDate,
                                                     Date endDate,
@@ -75,7 +97,6 @@ public class LocalAnalyticsManager extends AnalyticsManagerBase {
             return dummyDataProvider.getDummyResults(startDate, endDate, experimentDimensions, timeDimensions, extraDimensions, statisticsFilters, startIndex, maxResults);
         }
         // TODO: Check winner here instead???
-        // TODO: Check why this method sometimes returns null
 
         List<AggregatedTracking> trackings = this.resultRepository.getTrackingResults(statisticsFilters);
 

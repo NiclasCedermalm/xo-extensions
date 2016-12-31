@@ -42,7 +42,6 @@ public class DummyDataConfiguration extends AnalyticsConfiguration
     private int maxConversions;
     private List<DummyWinner> winners = new ArrayList();
 
-    private DummyDataCustomDimensionNames customDimensionNames = new DummyDataCustomDimensionNames();
 
     public DummyDataConfiguration() throws SmartTargetException {
 
@@ -112,10 +111,6 @@ public class DummyDataConfiguration extends AnalyticsConfiguration
             }
         }
         return null;
-    }
-
-    public CustomDimensionNames getCustomDimensionNames() {
-        return this.customDimensionNames;
     }
 
 }

@@ -1,9 +1,8 @@
 package com.sdl.experienceoptimization.analytics.dummy;
 
 
+import com.sdl.experienceoptimization.analytics.AnalyticsManagerBase;
 import com.tridion.smarttarget.SmartTargetException;
-import com.tridion.smarttarget.analytics.AnalyticsManager;
-import com.tridion.smarttarget.analytics.CustomDimensionNames;
 import com.tridion.smarttarget.analytics.results.AnalyticsResults;
 import com.tridion.smarttarget.analytics.results.AnalyticsResultsRow;
 import com.tridion.smarttarget.analytics.statistics.StatisticsExperimentDimensions;
@@ -23,7 +22,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class DummyDataProvider extends AnalyticsManager
+/**
+ * Dummy Data Analytics Provider
+ */
+public class DummyDataProvider extends AnalyticsManagerBase
 {
     private DummyDataConfiguration configuration;
     private static Map<String, CachedAnalyticsResults> cachedAnalyticsResults = new HashMap();
@@ -36,19 +38,6 @@ public class DummyDataProvider extends AnalyticsManager
         return this.configuration.getExperimentId();
     }
 
-    public StatisticsFilter getStatisticsFilter()
-    {
-        return new DummyDataFilter();
-    }
-
-    public void trackView(ExperimentDimensions experimentDimensions, Map<String, String> stringStringMap)
-    {
-    }
-
-    public void trackConversion(ExperimentDimensions experimentDimensions, Map<String, String> stringStringMap)
-    {
-    }
-
     public DummyDataConfiguration getConfiguration()
             throws SmartTargetException
     {
@@ -56,16 +45,22 @@ public class DummyDataProvider extends AnalyticsManager
         return this.configuration;
     }
 
-    public CustomDimensionNames getCustomDimensions()
-    {
-        return this.configuration.getCustomDimensionNames();
-    }
-
     public AnalyticsResults getDummyResults(Date startDate, Date endDate, StatisticsExperimentDimensions experimentDimensions, StatisticsTimeDimensions timeDimensions, List<String> extraDimensions, StatisticsFilters filters, int startIndex, int maxResults)
             throws Exception {
         return this.getStatisticsResults(startDate, endDate, experimentDimensions, timeDimensions, extraDimensions, filters, startIndex, maxResults);
     }
 
+    @Override
+    public void trackView(ExperimentDimensions experimentDimensions, Map<String, String> stringStringMap)
+    {
+    }
+
+    @Override
+    public void trackConversion(ExperimentDimensions experimentDimensions, Map<String, String> stringStringMap)
+    {
+    }
+
+    @Override
     protected AnalyticsResults getStatisticsResults(Date startDate, Date endDate, StatisticsExperimentDimensions experimentDimensions, StatisticsTimeDimensions timeDimensions, List<String> extraDimensions, StatisticsFilters filters, int startIndex, int maxResults)
             throws Exception
     {

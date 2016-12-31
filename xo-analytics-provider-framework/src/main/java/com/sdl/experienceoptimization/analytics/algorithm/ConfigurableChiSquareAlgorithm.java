@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 
 /**
  * Configurable Chi Square Algorithm
+ * Is extension of the OOTB Chi Square algorithm to make the 'Minimum conversions/variant' configurable.
  *
  * @author nic
  */

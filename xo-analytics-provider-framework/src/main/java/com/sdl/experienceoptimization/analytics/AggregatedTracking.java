@@ -3,7 +3,8 @@ package com.sdl.experienceoptimization.analytics;
 import java.util.Date;
 
 /**
- * AggregatedTracking
+ * Aggregated Tracking.
+ * Is used to aggregate tracking results into one (with the same experiment dimensions).
  *
  * @author nic
  */

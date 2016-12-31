@@ -3,7 +3,7 @@ package com.sdl.experienceoptimization.analytics;
 import com.tridion.smarttarget.analytics.CustomDimensionNames;
 
 /**
- * SimpleCustomDimensionNames
+ * Simple Custom Dimensio nNames
  *
  * @author nic
  */

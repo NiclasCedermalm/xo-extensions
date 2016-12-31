@@ -6,7 +6,7 @@ Is a simple framework for building XO analytics providers. Comes with a handy ba
 The following algorithms are provided through the framework;
 
 * Configurable Chi Square - A configurable version of standard Chi Square algorithm where minimum conversions per variant can be configured (property name: MinimumConversionsPerVariant)
-* Reach Conversion Goal Algorithm - Simple algorithm that just make the variant that first reach a specific number of conversions to winner (property name: ConversionGoal ) 
+* Reach Conversion Goal Algorithm - Simple algorithm that just make the variant that first reach a specific number of conversions to the winner (property name: ConversionGoal ) 
 
 
 Format of the configuration in smarttarget_conf.xml:

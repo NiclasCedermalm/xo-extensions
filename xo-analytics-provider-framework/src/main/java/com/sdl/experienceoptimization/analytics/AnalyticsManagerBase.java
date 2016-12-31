@@ -16,7 +16,7 @@ import com.tridion.smarttarget.experiments.statistics.Variants;
 import java.util.Calendar;
 
 /**
- * AnalyticsManagerBase
+ * AnalyticsManager base class
  *
  * @author nic
  */
@@ -24,6 +24,10 @@ public abstract class AnalyticsManagerBase extends AnalyticsManager {
 
     protected static Class<?> experimentWinnerAlgorithm;
 
+    /**
+     * Constructor.
+     * @throws SmartTargetException
+     */
     protected AnalyticsManagerBase() throws SmartTargetException {
 
         synchronized ( AnalyticsManagerBase.class ) {
@@ -49,6 +53,11 @@ public abstract class AnalyticsManagerBase extends AnalyticsManager {
         return new SimpleStatisticsFilter();
     }
 
+    /**
+     * Calculate winner of the running experiment
+     * @param variants
+     * @throws SmartTargetException
+     */
     @Override
     public void calculateWinner(Variants variants) throws SmartTargetException {
 
@@ -66,6 +75,11 @@ public abstract class AnalyticsManagerBase extends AnalyticsManager {
         }
     }
 
+    /**
+     * Get experiment ID
+     * @param statisticsFilters
+     * @return
+     */
     protected String getExperimentId(StatisticsFilters statisticsFilters) {
         for ( StatisticsFilter filter : statisticsFilters ) {
             if ( filter.getName().equals("ExperimentId") ) {
@@ -75,6 +89,14 @@ public abstract class AnalyticsManagerBase extends AnalyticsManager {
         return null;
     }
 
+    /**
+     * Add analytics result row to a result set.
+     * @param results
+     * @param tracking
+     * @param experimentDimensions
+     * @param timeDimensions
+     * @throws SmartTargetException
+     */
     protected void addAnalyticsResultsRow(AnalyticsResults results,
                                         AggregatedTracking tracking,
                                         StatisticsExperimentDimensions experimentDimensions,

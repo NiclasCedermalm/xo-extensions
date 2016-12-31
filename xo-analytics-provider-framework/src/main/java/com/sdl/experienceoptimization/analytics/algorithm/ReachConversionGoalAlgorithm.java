@@ -6,7 +6,8 @@ import com.tridion.smarttarget.experiments.statistics.Variant;
 import com.tridion.smarttarget.experiments.statistics.Variants;
 
 /**
- * ReachConversionGoalAlgorithm
+ * Reach Conversion Goal Algorithm
+ * Simple algorithm that just takes the first variant reaching a set conversion goal. Can be useful in demos etc.
  *
  * @author nic
  */

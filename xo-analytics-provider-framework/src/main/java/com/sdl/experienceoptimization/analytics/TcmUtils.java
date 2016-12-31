@@ -3,7 +3,7 @@ package com.sdl.experienceoptimization.analytics;
 import java.util.StringTokenizer;
 
 /**
- * TcmUtils
+ * TCM Utils
  *
  * @author nic
  */
