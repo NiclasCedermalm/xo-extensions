@@ -52,12 +52,12 @@ public class XOModule extends AbstractInitializer {
             log.warn("Analytics manager for XO markup decorator can't be initialized. Do you have a proper configuration?", e);
         }
 
-        //this.markupDecoratorRegistry.registerDecorator("Region", regionXpmMarkup);
-        //this.markupDecoratorRegistry.registerDecorator("Regions", regionXpmMarkup);
+        this.markupDecoratorRegistry.registerDecorator("Region", regionXpmMarkup);
+        this.markupDecoratorRegistry.registerDecorator("Regions", regionXpmMarkup);
         this.markupDecoratorRegistry.registerDecorator("Entity", promotionXpmMarkup);
-        //this.markupDecoratorRegistry.registerDecorator("Entities", promotionXpmMarkup);
+        this.markupDecoratorRegistry.registerDecorator("Entities", promotionXpmMarkup);
         this.markupDecoratorRegistry.registerDecorator("Entity", trackingMarkup);
-        //this.markupDecoratorRegistry.registerDecorator("Entities", trackingMarkup);
+        this.markupDecoratorRegistry.registerDecorator("Entities", trackingMarkup);
     }
 
 }
