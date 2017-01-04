@@ -37,3 +37,26 @@ Example of configuration in smarttarget_conf.xml:
     </Dummy>
 </Analytics>
 ```
+
+## Database
+
+The following table is needed to be created in you new/existing database:
+
+```
+CREATE TABLE TRACKING_RESULT(
+    EXP_ID varchar(50) NOT NULL,
+    PUBLICATION_ID int NOT NULL,
+    PUB_TARGET_ID int NOT NULL,
+    COMPONENT_ID int NOT NULL,
+    COMPONENT_TEMPLATE_ID int NOT NULL,
+    PAGE_ID int NOT NULL,
+    REGION varchar(50) NOT NULL,
+    TRACKING_DATE date NOT NULL,
+    CHOSEN_VARIANT int NOT NULL,
+    TRACKING_TYPE int NOT NULL,
+    TRACKING_COUNT int NOT NULL)
+GO
+   
+```
+
+This is made for MS-SQL but can easily be modified for other RDMBS, such as Hypersonic, Oracle etc.
