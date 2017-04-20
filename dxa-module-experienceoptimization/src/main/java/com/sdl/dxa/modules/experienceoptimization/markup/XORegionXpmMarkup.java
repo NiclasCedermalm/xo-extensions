@@ -34,12 +34,11 @@ public class XORegionXpmMarkup implements MarkupDecorator {
                         HtmlBuilders.div()
                                 .withNode(new HtmlCommentNode(stRegion.getStartQueryXpmMarkup()))
                                 .withNode(markup).build();
-
-                /* TODO: Do we need to have the following markup?
+                
                 markup = HtmlBuilders.span()
-                        .withTextContent("<!-- Start Promotion Region: {\"RegionID\": \"" + stRegion.getName() + "\"} -->")
+                        .withNode(new HtmlCommentNode("<!-- Start Promotion Region: {\"RegionID\": \"" + stRegion.getName() + "\"} -->"))
                         .withNode(markup).build();
-                        */
+
             }
         }
         return markup;

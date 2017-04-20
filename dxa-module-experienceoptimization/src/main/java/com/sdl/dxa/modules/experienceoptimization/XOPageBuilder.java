@@ -1,6 +1,7 @@
 package com.sdl.dxa.modules.experienceoptimization;
 
 import com.sdl.dxa.modules.smarttarget.mapping.SmartTargetPageBuilder;
+import com.sdl.dxa.modules.smarttarget.model.entity.AbstractSmartTargetPageModel;
 import com.sdl.dxa.modules.smarttarget.model.entity.SmartTargetPromotion;
 import com.sdl.dxa.modules.smarttarget.model.entity.SmartTargetRegion;
 import com.sdl.webapp.common.api.content.ContentProvider;
@@ -36,12 +37,13 @@ public class XOPageBuilder extends SmartTargetPageBuilder {
             //
             List<XORegionConfig> regionConfigs = this.getXORegionConfiguration(pageModel);
             if ( regionConfigs != null ) {
+                pageModel.setRegions(new XORegionModelSet(pageModel.getRegions()));
                 for (XORegionConfig regionConfig : regionConfigs) {
                     RegionModel region = pageModel.getRegions().get(regionConfig.getName());
                     try {
                         // Create XO region based on the page metadata
                         //
-                        SmartTargetRegion xoRegion = new SmartTargetRegion(regionConfig.getName(), regionConfig.getView());
+                        XORegion xoRegion = new XORegion(regionConfig.getName(), regionConfig.getView());
                         if (region != null) {
                             xoRegion.getEntities().addAll(region.getEntities()); // Transfer fallback content
                             pageModel.getRegions().remove(region);
@@ -59,7 +61,7 @@ public class XOPageBuilder extends SmartTargetPageBuilder {
                 //
                 for (XORegionConfig regionConfig : regionConfigs) {
                     RegionModel region = pageModel.getRegions().get(regionConfig.getName());
-                    if ( region != null && region instanceof SmartTargetRegion ) {
+                    if ( region != null && region instanceof XORegion ) {
                         List<EntityModel> entities = new ArrayList<>();
                         for ( EntityModel xoEntity : region.getEntities() ) {
                             if ( xoEntity instanceof SmartTargetPromotion ) {
@@ -75,7 +77,7 @@ public class XOPageBuilder extends SmartTargetPageBuilder {
                                 entities.add(xoEntity);
                             }
                         }
-                        ((SmartTargetRegion) region).setEntities(entities);
+                        ((XORegion) region).setEntities(entities);
                     }
                 }
             }
@@ -84,6 +86,13 @@ public class XOPageBuilder extends SmartTargetPageBuilder {
         return pageModel;
 
 
+    }
+
+    @Override
+    protected AbstractSmartTargetPageModel getSmartTargetPageModel(PageModel pageModel) {
+        AbstractSmartTargetPageModel xoPageModel = super.getSmartTargetPageModel(pageModel);
+        xoPageModel.setRegions(new XORegionModelSet(pageModel.getRegions()));
+        return xoPageModel;
     }
 
     private List<XORegionConfig> getXORegionConfiguration(PageModel page) {
